@@ -4,5 +4,13 @@
             "source": "/",
             "destination": "/index.jsx"
         }
-    ]
+    ],
+
+        "builds": [
+          {
+            "src": "next.config.js",
+            "use": "@vercel/next"
+          }
+        ]
+      
 }
