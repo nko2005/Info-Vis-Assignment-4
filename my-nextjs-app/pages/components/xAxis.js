@@ -33,7 +33,7 @@
 // }
 // }
 
-// export default XAxis
+
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
@@ -43,29 +43,42 @@ function XAxis(props) {
 
     useEffect(() => {
         if (xScale) {
-            const axis = typeof xScale.domain()[0] === 'number'
-                ? d3.axisBottom(xScale)
-                : d3.axisBottom(xScale).tickFormat(d => d);
+            // Check the type of the first element in the domain
+            const isNumeric = typeof xScale.domain()[0] === 'number';
+            const axis = d3.axisBottom(xScale);
 
+            // Log the domain and type
+            console.log('Domain:', xScale.domain());
+            console.log('Is Numeric:', isNumeric);
+
+            // Create the axis and apply formatting if necessary
             d3.select(axisRef.current).call(axis);
+
+            // Handle rotation for string labels
+            if (!isNumeric) {
+                d3.select(axisRef.current)
+                    .selectAll("g.tick text")
+                    .attr("transform", "rotate(90)")  // Rotate text labels
+                    .style("text-anchor", "start")    // Align text anchor
+                    .attr("dx", "1em")                // Adjust horizontal position
+                    .attr("dy", "-0.5em");              // Adjust position
+            }
         }
     }, [xScale]);
 
-    if (xScale) {
-        return (
-            <g ref={axisRef} transform={`translate(0, ${height})`}>
-                <text
-                    transform={`translate(${width / 2}, 35)`}
-                    textAnchor="middle"
-                    fill="black"
-                >
-                    {axisLabel}
-                </text>
-            </g>
-        );
-    } else {
-        return <g></g>;
-    }
+    return (
+        <g ref={axisRef} transform={`translate(0, ${height})`}>
+            <text
+                transform={`translate(${width / 2}, -20)`}
+                textAnchor="middle"
+                fill="black"
+                fontSize="15"
+
+            >
+                {axisLabel}
+            </text>
+        </g>
+    );
 }
 
 export default XAxis;

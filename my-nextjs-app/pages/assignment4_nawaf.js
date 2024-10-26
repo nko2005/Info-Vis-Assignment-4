@@ -8,6 +8,7 @@ import BarChart from './components/barChart'
 import Tooltip from './components/tooltips'
 
 
+
 const csvUrl = 'https://gist.githubusercontent.com/hogwild/3b9aa737bde61dcb4dfa60cde8046e04/raw/citibike2020.csv'
 
 function useData(csvPath){
@@ -59,12 +60,12 @@ const Charts = () => {
 //Q1.2: Complete the xScaleBar and yScaleBar
 //Hint: use d3.scaleBand for xScaleBar
     const xScaleBar = d3.scaleBand()
-        .domain(data.map(d => d.start))
+        .domain(data.map(d => d.station))
         .range([0, innerWidth])
         .padding(0.1);
 
     const yScaleBar = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.tripdurationS)])
+        .domain([0, d3.max(data, d => d.start)])
         .range([innerHeightBar, 0])
         .nice();
     const changeHandler = (event) => {

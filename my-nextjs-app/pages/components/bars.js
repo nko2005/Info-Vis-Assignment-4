@@ -32,10 +32,10 @@ function Bars(props) {
                 {data.map((d, i) => (
                     <rect
                         key={i}
-                        x={xScale(d.category)}
-                        y={yScale(d.value)}
+                        x={xScale(d.station)}
+                        y={yScale(d.start)}
                         width={xScale.bandwidth()}
-                        height={height - yScale(d.value)}
+                        height={height - yScale(d.start)}
                         fill="steelblue"
                     />
                 ))}

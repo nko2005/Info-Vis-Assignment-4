@@ -31,9 +31,9 @@ function YAxis(props) {
 
     useEffect(() => {
         if (yScale) {
-            const axis = typeof yScale.domain()[0] === 'number'
-                ? d3.axisLeft(yScale)
-                : d3.axisLeft(yScale).tickFormat(d => d);
+           
+           const axis = d3.axisLeft(yScale)
+                
 
             d3.select(axisRef.current).call(axis);
         }
@@ -43,14 +43,16 @@ function YAxis(props) {
         return (
             <g ref={axisRef}>
                 <text
-                    style={{ textAnchor: 'end', fontSize: '15px' }}
-                    transform={`translate(20, 0)rotate(-90)`}
+                    transform={`translate(10, ${height / 2 -10})rotate(-90)`}
+                    textAnchor="middle"
+                    fill="black"
+                    fontSize="15"
+                    dy="10"
                 >
                     {axisLabel}
                 </text>
             </g>
-        );
-    } else {
+        );   } else {
         return <g></g>;
     }
 }

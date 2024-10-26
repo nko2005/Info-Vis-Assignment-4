@@ -26,8 +26,8 @@ function Points(props) {
                 {data.map((d, i) => (
                     <circle
                         key={i}
-                        cx={xScale(d.x)}
-                        cy={yScale(d.y)}
+                        cx={xScale(d.tripdurationS)}
+                        cy={yScale(d.tripdurationE)}
                         r={5} 
                         fill="steelblue" 
                     />
