@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import localFont from "next/font/local";
-import styles from "@/styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +37,7 @@ export default function Home() {
           />
           <ol>
             <li>
-              Get started by editing <code>pages/index.tsx</code>.
+              Get started by editing <code>pages/index.jsx</code>.
             </li>
             <li>Save and see your changes instantly.</li>
           </ol>
