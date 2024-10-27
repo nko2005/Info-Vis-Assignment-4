@@ -1,12 +1,12 @@
 
-import React from 'react'
+
 import * as d3 from "d3"
 import 'bootstrap/dist/css/bootstrap.css'
 import { Row, Col, Container} from 'react-bootstrap'
 import ScatterPlot from './components/scatterPlot'
 import BarChart from './components/barChart'
 import Tooltip from './components/tooltips'
-
+import React, { useState } from 'react'
 
 
 const csvUrl = 'https://gist.githubusercontent.com/hogwild/3b9aa737bde61dcb4dfa60cde8046e04/raw/citibike2020.csv'
@@ -33,6 +33,14 @@ const Charts = () => {
     //Notes: you should define the hooks at the beginning of the component; a hook cannot be defined after the if ... else... statement;
    
     const dataAll = useData(csvUrl);
+
+    // Hooks for tooltip position and visibility
+    const [tooltipX, setTooltipX] =  useState(0);
+    const [tooltipY, setTooltipY] =  useState(0);
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const [tooltipContent, setTooltipContent] = useState("");
+
+    const [selectedStation, setSelectedStation] = useState(null);
     if (!dataAll) {
         return <pre>Loading...</pre>;
     };
@@ -46,8 +54,9 @@ const Charts = () => {
     const data = dataAll.filter( d => { 
         return d.month === MONTH[month] 
     });
-
+    
    
+    
     const xScaleScatter = d3.scaleLinear()
         .domain([0, d3.max(dataAll, d => d.tripdurationS)])
         .range([0, innerWidth])
@@ -84,21 +93,34 @@ const Charts = () => {
                 <Col>
                     <svg width={WIDTH} height={HEIGHT}>
                         <ScatterPlot offsetX={margin.left} offsetY={margin.top} data={data} xScale={xScaleScatter} yScale={yScaleScatter} 
-                        height={innerHeightScatter} width={innerWidth}/>
+                        height={innerHeightScatter} width={innerWidth} selectedStation={selectedStation}
+                        setSelectedStation={setSelectedStation} setTooltipX={setTooltipX}
+                        setTooltipY={setTooltipY} setTooltipVisible={setTooltipVisible} setTooltipContent={setTooltipContent}
+
+                        />
                     </svg>
                 </Col>
                 <Col>
                     <svg width={WIDTH} height={HEIGHT}>
                         <BarChart offsetX={margin.left} offsetY={margin.top} data={data} xScale={xScaleBar} 
-                        yScale={yScaleBar} height={innerHeightBar} width={innerWidth}/>
+                        yScale={yScaleBar} height={innerHeightBar} width={innerWidth} selectedStation={selectedStation}
+                        setSelectedStation={setSelectedStation}/>
                     </svg>
                 </Col>
             </Row>
-            {/* Q1.6: add the Tooltip 
+            
+            
+            {
+            /* Q1.6: add the Tooltip 
             1. you should get the selected pointed first and pass it to the <Tooltip />
             2. you should define the hooks for X and Y coordinates of the tooltip; 
             3. to get the position of the mouse event, you can use event.pageX and event.pageY;
-            */}
+            */
+            tooltipVisible && (
+                <Tooltip d ={tooltipContent} x={tooltipX} y={tooltipY}  />
+           )}
+            
+        
         </Container>
     )   
 }

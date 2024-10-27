@@ -47,9 +47,8 @@ function XAxis(props) {
             const isNumeric = typeof xScale.domain()[0] === 'number';
             const axis = d3.axisBottom(xScale);
 
-            // Log the domain and type
-            console.log('Domain:', xScale.domain());
-            console.log('Is Numeric:', isNumeric);
+            
+           
 
             // Create the axis and apply formatting if necessary
             d3.select(axisRef.current).call(axis);
