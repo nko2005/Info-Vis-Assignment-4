@@ -3,9 +3,9 @@
 import * as d3 from "d3"
 import 'bootstrap/dist/css/bootstrap.css'
 import { Row, Col, Container} from 'react-bootstrap'
-import ScatterPlot from './components/scatterPlot'
-import BarChart from './components/barChart'
-import Tooltip from './components/tooltips'
+import ScatterPlot from './components/assignment4/scatterPlot'
+import BarChart from './components/assignment4/barChart'
+import Tooltip from './components/assignment4/tooltips'
 import React, { useState } from 'react'
 
 
