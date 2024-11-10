@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Assignment4Component from './assignment4_nawaf';
-import Assignment5Component from './assignment5_student'; 
+import Assignment5Component from './assignment5_nawaf'; 
 export default function Home() {
   return (
     <>
